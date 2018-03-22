@@ -14,6 +14,15 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const getUserInfo = () => {
+  wx.getUserInfo({
+    success: res => {
+      app.globalData.userInfo = res.userInfo
+      app.globalData.hasUserInfo = true
+    }
+  })
+}
+
 module.exports = {
   formatTime: formatTime
 }

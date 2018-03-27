@@ -10,5 +10,22 @@
       <image src="/assets/add.png" class="plus-sign" />
     </view>
   </view>
+  <view class="list-content">
+    <view class="item" bindlongpress="pressFun">
+      今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔
+    </view>
+    <view class="item">
+      今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔
+    </view>
+    <view class="item">
+      今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔
+    </view>
+    <view class="item">
+      今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔
+    </view>
+    <view class="item overdue">
+      今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔
+    </view>
+  </view>
 </scroll-view>
 

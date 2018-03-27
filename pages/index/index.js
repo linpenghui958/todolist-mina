@@ -15,6 +15,9 @@ Page({
       url: '../logs/logs'
     })
   },
+  pressFun: function () {
+    console.log('longpress')
+  },
   onLoad: function () {
     if (app.globalData.userInfo) {
       this.setData({

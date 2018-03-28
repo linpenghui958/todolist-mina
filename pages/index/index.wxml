@@ -23,9 +23,24 @@
     <view class="item">
       今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔
     </view>
-    <view class="item overdue">
+    <view class="item overdue" bindtap="tabEdit">
       今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔
     </view>
+    <view class="edit-control {{isEditShow == true ? 'active': ''}}" >
+      <view class="edit-wrapper">
+        <view class="text">编辑</view>
+        <image src="/assets/edit.png" class="icon-edit"/>
+      </view>
+      <view class="del-wrapper">
+        <view class="text">删除</view>
+        <image src="/assets/del.png" class="icon-del"/>
+      </view>
+    </view>
   </view>
+  <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+    <view class="picker">
+      当前选择: {{date}}
+    </view>
+  </picker>
 </scroll-view>
 

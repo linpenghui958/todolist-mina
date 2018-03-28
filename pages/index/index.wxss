@@ -48,7 +48,7 @@
   display: block;
   width: 662rpx;
   height: 90rpx;
-  background: linear-gradient(to right,#114cf4, #20cfef);
+  background: #509AFF;
   border-radius: 8rpx;
   margin-bottom: 30rpx;
   text-indent: 100rpx;
@@ -78,4 +78,53 @@
 }
 .list-content .item.overdue::after{
   background-color: #d3d3d3;
+}
+
+.edit-control{
+  width: 662rpx;
+  height: 0rpx;
+  background: #fff;
+  border-radius: 8rpx;
+  box-sizing: border-box;
+  border: 1px solid #c5c0c0;
+  margin-bottom: 30rpx;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: all linear .2s;
+  overflow: hidden;
+}
+.edit-control.active{
+  height: 90rpx;
+  opacity: 1;
+  transition: all linear .2s;
+}
+
+.edit-control::after{
+  content: '';
+  display: block;
+  position: absolute;
+  background-color: #c5c0c0;
+  width: 1rpx;
+  height: 48rpx;
+  top: 20rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.edit-wrapper, .del-wrapper{
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.edit-wrapper .text, .del-wrapper .text{
+  font-size: 23rpx;
+  color: #509AFF;
+  margin-right: 24rpx;
+}
+.edit-wrapper .icon-edit, .del-wrapper .icon-del{
+  width: 38rpx;
+  height: 38rpx;
 }

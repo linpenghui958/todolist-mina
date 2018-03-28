@@ -7,7 +7,9 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    date: '2018-03-28',
+    isEditShow: false
   },
   //事件处理函数
   bindViewTap: function() {
@@ -52,6 +54,17 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+  bindDateChange: function(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      date: e.detail.value
+    })
+  },
+  tabEdit: function (e) {
+    this.setData({
+      isEditShow: !this.data.isEditShow
     })
   }
 })

@@ -9,7 +9,8 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     date: '2018-03-28',
-    isEditShow: false
+    isEditShow: false,
+    isShowDialog: false
   },
   //事件处理函数
   bindViewTap: function() {
@@ -65,6 +66,11 @@ Page({
   tabEdit: function (e) {
     this.setData({
       isEditShow: !this.data.isEditShow
+    })
+  },
+  closeDialog: function () {
+    this.setData({
+      isShowDialog: true
     })
   }
 })

@@ -128,3 +128,68 @@
   width: 38rpx;
   height: 38rpx;
 }
+
+/* dialog css */
+.dialog-wrapper{
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  position: fixed;
+  opacity: .4;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  transition: all ease .6s;
+}
+.dialog-wrapper.active{
+  opacity: 0;
+  transition: all ease .6s;
+}
+.dialog{
+  width: 100%;
+  height: 360rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 11;
+  box-sizing: border-box;
+  padding: 58rpx 41rpx 50rpx 47rpx;
+  background-color: #fff;
+  transition: all ease .6s;
+}
+.dialog.active{
+  top: -360rpx;
+  transition: all ease .6s;
+}
+.dialog .dialog-content{
+  width: 100%;
+  height: 154rpx;
+  border: 1rpx solid #d9d8d8;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  line-height: 36rpx;
+  color: #000;
+  box-sizing: border-box;
+  padding: 20rpx 15rpx 0 ;
+}
+.dialog .dialog-edit{
+  width: 100%;
+  height: 50rpx;
+  margin-top: 17rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.dialog .dialog-edit .clock{
+  width: 38rpx;
+  height: 38rpx;
+}
+.dialog .dialog-edit .dialog-confirm{
+  font-size: 24rpx;
+  color: #509AFF;
+  border: 1rpx solid #509AFF;
+  width: 148rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  border-radius: 10rpx;
+}

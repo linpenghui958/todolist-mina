@@ -1,5 +1,16 @@
 <!--index.wxml-->
-<scroll-view scroll-x="true" class="container" >
+<scroll-view scroll-y="true" class="container" >
+  <view class="dialog-wrapper {{isShowDialog == true ? 'active' : ''}}">
+  </view>
+  <view class="dialog  {{isShowDialog == true ? 'active' : ''}}">
+    <textarea class="dialog-content" fixed="true" value="今天晚上十一点邀请ZZZ一起去图书馆借书显而易见几乎总是非常简单的——简单到有时候整个一代的人都对它视而不见、熟视无睹。反之，"/>
+    <view class="dialog-edit">
+      <image src="/assets/clock.png" class="clock"/>
+      <view class="dialog-confirm" bindtap="closeDialog">确认</view>
+    </view>
+  </view>
+  
+  
   <view class="topbar">
     <view>
       <view class="day">Today</view>

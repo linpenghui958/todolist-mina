@@ -139,10 +139,12 @@
   top: 0;
   left: 0;
   z-index: 10;
+  display: block;
   transition: all ease .6s;
 }
 .dialog-wrapper.active{
   opacity: 0;
+  display: none;
   transition: all ease .6s;
 }
 .dialog{

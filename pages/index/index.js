@@ -70,6 +70,11 @@ Page({
   },
   closeDialog: function () {
     this.setData({
+      isShowDialog: false
+    })
+  },
+  openDialog: function () {
+    this.setData({
       isShowDialog: true
     })
   }

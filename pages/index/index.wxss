@@ -195,3 +195,8 @@
   text-align: center;
   border-radius: 10rpx;
 }
+
+.time-picker{
+  width: 100rpx;
+  opacity: 1;
+}

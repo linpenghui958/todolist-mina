@@ -2,6 +2,8 @@
 //获取应用实例
 const app = getApp()
 
+const util = require('../../utils/util')
+
 Page({
   data: {
     motto: 'Hello World',
@@ -9,6 +11,7 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     date: '2018-03-28',
+    showDate: '',
     isEditShow: false,
     isShowDialog: false
   },
@@ -48,6 +51,14 @@ Page({
         }
       })
     }
+    this.getDate()
+  },
+  getDate: function () {
+    var date = new Date()
+    date = util.formatTopBarTime(date)
+    this.setData({
+      showDate: date
+    })
   },
   getUserInfo: function(e) {
     console.log(e)
@@ -59,9 +70,17 @@ Page({
   },
   bindDateChange: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
+    var tmpArr = e.detail.value.split('-')
+    var showDate = `${util.monthList[Number(tmpArr[1])]}.${tmpArr[2]}.${tmpArr[0]}`
     this.setData({
-      date: e.detail.value
+      date: e.detail.value,
+      showDate: showDate
     })
+  },
+  formatterTime: function (date) {
+    // var arr = date.tostring().splite('-')
+    // console.log(date)
+    // return `${util.monthList[arr[1]]}.${arr[2]}.${arr[0]}`
   },
   tabEdit: function (e) {
     this.setData({
@@ -77,5 +96,11 @@ Page({
     this.setData({
       isShowDialog: true
     })
+  },
+  todoLogin: function () {
+    util.todoLogin()
+  },
+  formatter: function (date) {
+    return '时间是'+date;
   }
 })

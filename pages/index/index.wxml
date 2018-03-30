@@ -13,19 +13,21 @@
   
   <view class="topbar">
     <view>
-      <view class="day">Today</view>
-      <view class="date">sep.4.2017</view>
+      <picker class="time-picker" mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+        <view class="day">Today</view>
+        <view class="date">{{showDate}}</view>
+      </picker>
     </view>
     <view>
       <view class="add-btn">Add a task</view>
       <image src="/assets/add.png" class="plus-sign" />
     </view>
   </view>
-  <view class="list-content" bindtap="openDialog">
-    <view class="item" bindlongpress="pressFun">
+  <view class="list-content" >
+    <view class="item" bindlongpress="pressFun" bindtap="openDialog">
       今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔
     </view>
-    <view class="item">
+    <view class="item" bindtap="todoLogin">
       今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔
     </view>
     <view class="item">
@@ -48,10 +50,6 @@
       </view>
     </view>
   </view>
-  <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
-    <view class="picker">
-      当前选择: {{date}}
-    </view>
-  </picker>
+  
 </scroll-view>
 

@@ -26,12 +26,14 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
-const todoLogin = () => {
+const todoLogin = (params, fn) => {
   wx.request({
-    url: prefix + '/api/v1/auth',
+    url: prefix + '/api/login',
     method: 'POST',
-    success: function (data, statusCode) {
-      console.log(data)
+    data: params,
+    dataType: 'json',
+    success: function (res) {
+      fn(res)
     }
   })
 }
@@ -39,6 +41,7 @@ const todoLogin = () => {
 const getUserInfo = () => {
   wx.getUserInfo({
     success: res => {
+      console.log(res);
       app.globalData.userInfo = res.userInfo
       app.globalData.hasUserInfo = true
     }

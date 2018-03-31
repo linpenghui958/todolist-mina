@@ -1,3 +1,5 @@
+@import './todo-item/todo-item.wxss';
+
 .container{
   width: 100%;
   height: 100vh;
@@ -41,92 +43,6 @@
   justify-content: center;
   flex-wrap: wrap;
   margin-top: 45rpx;
-  min-height: 500rpx;
-}
-.list-content .item{
-  position: relative;
-  display: block;
-  width: 662rpx;
-  height: 90rpx;
-  background: #509AFF;
-  border-radius: 8rpx;
-  margin-bottom: 30rpx;
-  text-indent: 100rpx;
-  line-height: 90rpx;
-  font-size: 24rpx;
-  color: #fff;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.list-content .item::after{
-  display: block;
-  content: '';
-  position: absolute;
-  width: 36rpx;
-  height: 36rpx;
-  border-radius: 50%;
-  left:  28rpx;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: #fff;
-}
-.list-content .item.overdue{
-  background: #fff;
-  color: #d3d3d3;
-  text-decoration: line-through;
-}
-.list-content .item.overdue::after{
-  background-color: #d3d3d3;
-}
-
-.edit-control{
-  width: 662rpx;
-  height: 0rpx;
-  background: #fff;
-  border-radius: 8rpx;
-  box-sizing: border-box;
-  border: 1px solid #c5c0c0;
-  margin-bottom: 30rpx;
-  opacity: 0;
-  display: flex;
-  align-items: center;
-  position: relative;
-  transition: all linear .2s;
-  overflow: hidden;
-}
-.edit-control.active{
-  height: 90rpx;
-  opacity: 1;
-  transition: all linear .2s;
-}
-
-.edit-control::after{
-  content: '';
-  display: block;
-  position: absolute;
-  background-color: #c5c0c0;
-  width: 1rpx;
-  height: 48rpx;
-  top: 20rpx;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.edit-wrapper, .del-wrapper{
-  width: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-}
-.edit-wrapper .text, .del-wrapper .text{
-  font-size: 23rpx;
-  color: #509AFF;
-  margin-right: 24rpx;
-}
-.edit-wrapper .icon-edit, .del-wrapper .icon-del{
-  width: 38rpx;
-  height: 38rpx;
 }
 
 /* dialog css */

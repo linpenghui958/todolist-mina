@@ -1,4 +1,5 @@
 <!--index.wxml-->
+<import src="./todo-item/todo-item.wxml" />
 <scroll-view scroll-y="true" class="container" >
   <view class="dialog-wrapper {{isShowDialog == true ? '' : 'active'}}">
   </view>
@@ -24,31 +25,9 @@
     </view>
   </view>
   <view class="list-content" >
-    <view class="item" bindlongpress="pressFun" bindtap="openDialog">
-      今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔
-    </view>
-    <view class="item" bindtap="todoLogin">
-      今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔
-    </view>
-    <view class="item">
-      今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔
-    </view>
-    <view class="item">
-      今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔
-    </view>
-    <view class="item overdue" bindtap="tabEdit">
-      今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔
-    </view>
-    <view class="edit-control {{isEditShow == true ? 'active': ''}}" >
-      <view class="edit-wrapper">
-        <view class="text">编辑</view>
-        <image src="/assets/edit.png" class="icon-edit"/>
-      </view>
-      <view class="del-wrapper">
-        <view class="text">删除</view>
-        <image src="/assets/del.png" class="icon-del"/>
-      </view>
-    </view>
+    <block wx:for="{{list}}" wx:for-index="index" wx:key="key">
+      <template is="todo-item" data="{{...item}}"/>
+    </block>
   </view>
   
 </scroll-view>

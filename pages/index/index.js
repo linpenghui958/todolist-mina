@@ -12,14 +12,14 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     date: '2018-03-28',
     showDate: '',
-    isEditShow: false,
     isShowDialog: false,
-    showEditIndex: 1,
+    showEditIndex: null,
     list: [
       {id: 1, title: '1今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔1'},
       {id: 2, title: '2今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔1'},
       {id: 3, title: '3今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔1'}
-    ]
+    ],
+    animationData: {}
   },
   //事件处理函数
   bindViewTap: function() {
@@ -85,15 +85,26 @@ Page({
       showDate: showDate
     })
   },
-  formatterTime: function (date) {
-    // var arr = date.tostring().splite('-')
-    // console.log(date)
-    // return `${util.monthList[arr[1]]}.${arr[2]}.${arr[0]}`
-  },
   tabEdit: function (e) {
-    this.setData({
-      isEditShow: !this.data.isEditShow
-    })
+    let id = e.target.dataset.id
+    if (this.data.showEditIndex === id) {
+      var animation = wx.createAnimation({
+        duration: 600,
+        timingFunction: "ease",
+        delay: 0
+      })
+      animation.height(90)
+      this.setData({
+        animationData:animation.export()
+      })
+      this.setData({
+        showEditIndex: null
+      })
+    } else {
+      this.setData({
+        showEditIndex: id
+      })
+    }
   },
   closeDialog: function () {
     this.setData({

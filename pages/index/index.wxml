@@ -1,5 +1,4 @@
 <!--index.wxml-->
-<import src="./todo-item/todo-item.wxml" />
 <scroll-view scroll-y="true" class="container" >
   <view class="dialog-wrapper {{isShowDialog == true ? '' : 'active'}}">
   </view>
@@ -25,9 +24,23 @@
     </view>
   </view>
   <view class="list-content" >
-    <block wx:for="{{list}}" wx:for-index="index" wx:key="key">
-      <template is="todo-item" data="{{...item}}"/>
-    </block>
+    <view wx:for="{{list}}" wx:for-index="index" wx:key="key" class="item-wrapper">
+      <view class="item" bindtap="tabEdit" data-id="{{item.id}}">
+        {{item.title}}
+      </view>
+      <view class="edit-control-wrapper {{showEditIndex === item.id ? 'active' : ''}}">
+        <view class="edit-control " >
+          <view class="edit-wrapper">
+            <view class="text">编辑</view>
+            <image src="/assets/edit.png" class="icon-edit"/>
+          </view>
+          <view class="del-wrapper">
+            <view class="text">删除</view>
+            <image src="/assets/del.png" class="icon-del"/>
+          </view>
+        </view>
+      </view>
+    </view>
   </view>
   
 </scroll-view>

@@ -1,40 +1,41 @@
 <!--index.wxml-->
 <scroll-view scroll-y="true" class="container" >
-  <view class="dialog-wrapper {{isShowDialog == true ? '' : 'active'}}">
+  <view class="dialog-wrapper {{isShowDialog == true ? '' : 'active'}}" bindtap="closeDialog">
   </view>
   <view class="dialog  {{isShowDialog == true ? '' : 'active'}}">
-    <textarea class="dialog-content" fixed="true" value="今天晚上十一点邀请ZZZ一起去图书馆借书显而易见几乎总是非常简单的——简单到有时候整个一代的人都对它视而不见、熟视无睹。反之，"/>
+    <textarea class="dialog-content" fixed="true" value="{{dialogContent}}" placeholder="输入备忘内容。" bindinput="inputChange"/>
     <view class="dialog-edit">
       <image src="/assets/clock.png" class="clock"/>
-      <view class="dialog-confirm" bindtap="closeDialog">确认</view>
+      <view class="dialog-confirm" bindtap="confirmAdd">确认</view>
     </view>
   </view>
   
   
   <view class="topbar">
     <view>
-      <picker class="time-picker" mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+      <picker class="time-picker" mode="date" value="{{date}}" start="{{startDate}}" end="{{endDate}}" bindchange="bindDateChange">
         <view class="day">Today</view>
         <view class="date">{{showDate}}</view>
       </picker>
     </view>
-    <view>
+    <view bindtap="addTodoItem">
       <view class="add-btn">Add a task</view>
       <image src="/assets/add.png" class="plus-sign" />
     </view>
   </view>
   <view class="list-content" >
     <view wx:for="{{list}}" wx:for-index="index" wx:key="key" class="item-wrapper">
-      <view class="item" bindtap="tabEdit" data-id="{{item.id}}">
+      <view class="item {{showDetailIndex === item.id ? 'detail' : ''}} {{item.status === 0 ? '' : 'overdue'}}" bindlongpress="tabEdit" bindtap="showItemText" data-id="{{item.id}}">
         {{item.title}}
+        <view class="checkbox" catchtap="overdueItem" data-id="{{item.id}}"></view>
       </view>
       <view class="edit-control-wrapper {{showEditIndex === item.id ? 'active' : ''}}">
         <view class="edit-control " >
-          <view class="edit-wrapper">
+          <view class="edit-wrapper" catchtap="editItem" data-id="{{item.id}}" data-title="{{item.title}}">
             <view class="text">编辑</view>
             <image src="/assets/edit.png" class="icon-edit"/>
           </view>
-          <view class="del-wrapper">
+          <view class="del-wrapper" catchtap="delItem" data-id="{{item.id}}">
             <view class="text">删除</view>
             <image src="/assets/del.png" class="icon-del"/>
           </view>

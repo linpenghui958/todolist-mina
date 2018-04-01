@@ -10,16 +10,18 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    date: '2018-03-28',
+    date: null,
     showDate: '',
     isShowDialog: false,
     showEditIndex: null,
-    list: [
-      {id: 1, title: '1今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔1'},
-      {id: 2, title: '2今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔1'},
-      {id: 3, title: '3今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔1'}
-    ],
-    animationData: {}
+    showDetailIndex: null,
+    list: [],
+    dialogContent: '',
+    is_notice: 0,
+    notice_time: null,
+    startDate: null,
+    endDate: null,
+    isNewTodo: true
   },
   //事件处理函数
   bindViewTap: function() {
@@ -31,6 +33,10 @@ Page({
     console.log('longpress')
   },
   onLoad: function () {
+    wx.showLoading({
+      title: '玩命加载中',
+    })
+    this.getDate()
     var that = this
     if (app.globalData.userInfo) {
       this.setData({
@@ -42,14 +48,14 @@ Page({
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = params => {
         util.todoLogin(params, function (res) {
-          app.globalData.token = res.data.token
+          app.globalData.token = res.data.data.token
+          that.getTodoList()
         })
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
         success: res => {
-          console.log(res);
           app.globalData.userInfo = res.userInfo
           this.setData({
             userInfo: res.userInfo,
@@ -59,13 +65,27 @@ Page({
         }
       })
     }
-    this.getDate()
+    
+  },
+  getTodoList: function () {
+    util.getTodoList(this.data.date,(res) => {
+      console.log(res)
+      this.setData({
+        list: res.data.data
+      })
+      wx.hideLoading()
+    })
   },
   getDate: function () {
     var date = new Date()
-    date = util.formatTopBarTime(date)
+    var startDate = util.startDate()
+    var endDate = util.endDate()
+    var formDate = util.formatTopBarTime(date)
     this.setData({
-      showDate: date
+      showDate: formDate,
+      startDate: startDate,
+      endDate: endDate,
+      date: startDate
     })
   },
   getUserInfo: function(e) {
@@ -84,19 +104,12 @@ Page({
       date: e.detail.value,
       showDate: showDate
     })
+    this.getTodoList()
   },
+  // 长按显示编辑框
   tabEdit: function (e) {
     let id = e.target.dataset.id
     if (this.data.showEditIndex === id) {
-      var animation = wx.createAnimation({
-        duration: 600,
-        timingFunction: "ease",
-        delay: 0
-      })
-      animation.height(90)
-      this.setData({
-        animationData:animation.export()
-      })
       this.setData({
         showEditIndex: null
       })
@@ -105,6 +118,54 @@ Page({
         showEditIndex: id
       })
     }
+  },
+  // 短按显示具体内容
+  showItemText: function (e) {
+    let id = e.target.dataset.id
+    if (this.data.showDetailIndex === id) {
+      this.setData({
+        showDetailIndex: null
+      })
+    } else {
+      this.setData({
+        showDetailIndex: id
+      })
+    }
+  },
+  // 短按原点显示完成样式
+  overdueItem: function (e) {
+    let id = e.target.dataset.id
+    console.log(id)
+    util.overDueItem(id, () => {
+      wx.showToast({
+        title: '修改成功',
+        icon: 'success'
+      })
+      this.getTodoList()
+    })
+  },
+  // 短按编辑item
+  editItem: function (e) {
+    let title = e.target.dataset.title ? e.target.dataset.title : e.currentTarget.dataset.title
+    let id = e.target.dataset.id ? e.target.dataset.id : e.currentTarget.dataset.id
+    console.log(e)
+    this.setData({
+      dialogContent: title,
+      isNewTodo: false
+    })
+    this.openDialog()
+  },
+  // 短按删除item
+  delItem: function (e) {
+    let id = e.currentTarget.dataset.id
+    console.log(e)
+    wx.showModal({
+      title: 'confirm',
+      content: `确认删除id为${id}`,
+      success: function (res) {
+         console.log(res) 
+      },
+    })
   },
   closeDialog: function () {
     this.setData({
@@ -118,5 +179,49 @@ Page({
   },
   formatter: function (date) {
     return '时间是'+date;
+  },
+  // 新增todo
+  addTodoItem: function () {
+    this.setData({
+      dialogContent: '',
+      isShowDialog: true,
+      isNewTodo: true
+    })
+  },
+  // 短按确认添加新的todo
+  confirmAdd: function () {
+    console.log(this.data.dialogContent.length)
+    if (this.data.dialogContent.length <= 0) {
+      wx.showToast({
+        title: '请输入内容',
+        icon: 'none'
+      })
+      return;
+    }
+    let obj = {
+      title: this.data.dialogContent,
+      is_notice: this.data.is_notice || 0,
+      notice_time: this.data.notice_time || ''
+    }
+    if (this.data.isNewTodo) {
+      util.addTodoItem(obj, (res) => {
+        wx.showToast({
+          title: '添加成功',
+          icon: 'success'
+        })
+        this.closeDialog()
+      })
+    } else {
+      wx.showToast({
+        title: '修改成功',
+        icon: 'success'
+      })
+    }
+  },
+  // 输入框事件
+  inputChange: function (e) {
+    this.setData({
+      dialogContent: e.detail.value
+    })
   }
 })

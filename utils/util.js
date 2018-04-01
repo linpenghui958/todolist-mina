@@ -1,3 +1,5 @@
+const app = getApp()
+
 const prefix = 'https://todo.linph.cc';
 
 const monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Noc', 'Dec']
@@ -38,6 +40,27 @@ const todoLogin = (params, fn) => {
   })
 }
 
+const getTodoList = (date, fn) => {
+  wx.request({
+    url: prefix + '/api/' + date,
+    header: {
+      'Authorization': `Bearer ${getApp().globalData.token}`
+    },
+    method: 'GET',
+    success: function (res) {
+      fn(res)
+    }
+  })
+}
+
+const endDate = () => {
+  var date = new Date()
+  var year = date.getFullYear()
+  var month = date.getMonth()
+  var day = date.getDate() + 7
+  return `${year}-${month}-${day}`
+}
+
 const getUserInfo = () => {
   wx.getUserInfo({
     success: res => {
@@ -52,5 +75,7 @@ module.exports = {
   formatTime: formatTime,
   todoLogin: todoLogin,
   formatTopBarTime: formatTopBarTime,
-  monthList
+  monthList,
+  getTodoList,
+  endDate
 }

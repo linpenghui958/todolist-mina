@@ -88,6 +88,26 @@ const addTodoItem = (params, fn) => {
     }
   })
 }
+const editTodoItem = (params, fn) => {
+  let obj = {}
+  for (var i in params) {
+    if (params[i] == null) {
+      continue;
+    }
+    obj[i] = params[i]
+  }
+  wx.request({
+    url: prefix + '/api/task/edit',
+    data: obj,
+    header: {
+      'Authorization': `Bearer ${getApp().globalData.token}`
+    },
+    method: 'POST',
+    success: function (res) {
+      fn(res)
+    }
+  })
+}
 
 const overDueItem = (id, fn) => {
   wx.request({
@@ -121,5 +141,6 @@ module.exports = {
   endDate,
   startDate,
   addTodoItem,
-  overDueItem
+  overDueItem,
+  editTodoItem
 }

@@ -210,6 +210,7 @@ Page({
       form_id: e.detail.formId || ''
     }
     if (this.data.isNewTodo) {
+      obj.addtime = this.data.date
       util.addTodoItem(obj, (res) => {
         wx.showToast({
           title: '添加成功',
@@ -219,7 +220,8 @@ Page({
         this.getTodoList()
       })
     } else {
-      util.addTodoItem(obj, (res) => {
+      obj.task_id = this.data.taskId
+      util.editTodoItem(obj, (res) => {
         wx.showToast({
           title: '添加成功',
           icon: 'success'

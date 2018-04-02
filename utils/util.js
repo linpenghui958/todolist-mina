@@ -76,7 +76,6 @@ const addTodoItem = (params, fn) => {
     }
     obj[i] = params[i]
   }
-  console.log(obj)
   wx.request({
     url: prefix + '/api/task/add',
     data: obj,

@@ -2,13 +2,37 @@
 <scroll-view scroll-y="true" class="container" >
   <view class="dialog-wrapper {{isShowDialog == true ? '' : 'active'}}" bindtap="closeDialog">
   </view>
-  <view class="dialog  {{isShowDialog == true ? '' : 'active'}}">
-    <textarea class="dialog-content" fixed="true" value="{{dialogContent}}" placeholder="输入备忘内容。" bindinput="inputChange"/>
-    <view class="dialog-edit">
-      <image src="/assets/clock.png" class="clock"/>
-      <view class="dialog-confirm" bindtap="confirmAdd">确认</view>
+  <view class="choose-time-wrapper {{isShowTimeWrapper == true ? 'active' : ''}}">
+    <view class="choose-time">
+      <view class="title">选择提醒时间</view>
+      <picker mode="date" value="{{reminDate}}" start="{{startDate}}" end="{{endDate}}" bindchange="remindDayChange">
+        <view class="picker"  class="remind-day">
+          日期: {{remindDate}}
+        </view>
+      </picker>
+      <picker mode="time" value="{{remindTime}}" start="00:00" end="24:00" bindchange="remindTimeChange">
+        <view class="picker"  class="remind-time">
+          时间: {{remindTime}}
+        </view>
+      </picker>
+      <view class="confirm-remind" catchtap="closeTimeWrapper">
+        确认
+      </view>
     </view>
   </view>
+  <form bindsubmit="confirmAdd" report-submit="true">
+    <view class="dialog  {{isShowDialog == true ? '' : 'active'}}">
+      <textarea class="dialog-content" fixed="true" value="{{dialogContent}}" placeholder="输入备忘内容。" bindinput="inputChange"/>
+      <input type="string" placeholder="" class="hidden" name="notice_time" value="{{notice_time}}"/>
+      <input type="string" placeholder="" class="hidden" name="is_notice" value="{{is_notice}}"/>
+      <input type="string" placeholder="" class="hidden" name="title" value="{{dialogContent}}"/>
+      <input type="string" placeholder="" class="hidden" name="taskId" value="{{taskId}}"/>
+      <view class="dialog-edit">
+        <image src="/assets/clock.png" class="clock"  catchtap="openTimerWrapper"/>
+        <button class="dialog-confirm" form-type="submit">确认</button>
+      </view>
+    </view>
+  </form>
   
   
   <view class="topbar">
@@ -43,6 +67,7 @@
       </view>
     </view>
   </view>
+  
   
 </scroll-view>
 

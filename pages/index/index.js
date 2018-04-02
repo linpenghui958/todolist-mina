@@ -19,9 +19,13 @@ Page({
     dialogContent: '',
     is_notice: 0,
     notice_time: null,
+    taskId: null,
     startDate: null,
     endDate: null,
-    isNewTodo: true
+    isNewTodo: true,
+    remindDate: '',
+    remindTime:'',
+    isShowTimeWrapper: false
   },
   //事件处理函数
   bindViewTap: function() {
@@ -151,7 +155,8 @@ Page({
     console.log(e)
     this.setData({
       dialogContent: title,
-      isNewTodo: false
+      isNewTodo: false,
+      taskId: id
     })
     this.openDialog()
   },
@@ -189,8 +194,8 @@ Page({
     })
   },
   // 短按确认添加新的todo
-  confirmAdd: function () {
-    console.log(this.data.dialogContent.length)
+  confirmAdd: function (e) {
+    console.log(e)
     if (this.data.dialogContent.length <= 0) {
       wx.showToast({
         title: '请输入内容',
@@ -201,7 +206,8 @@ Page({
     let obj = {
       title: this.data.dialogContent,
       is_notice: this.data.is_notice || 0,
-      notice_time: this.data.notice_time || ''
+      notice_time: this.data.notice_time || '',
+      form_id: e.detail.formId || ''
     }
     if (this.data.isNewTodo) {
       util.addTodoItem(obj, (res) => {
@@ -210,11 +216,16 @@ Page({
           icon: 'success'
         })
         this.closeDialog()
+        this.getTodoList()
       })
     } else {
-      wx.showToast({
-        title: '修改成功',
-        icon: 'success'
+      util.addTodoItem(obj, (res) => {
+        wx.showToast({
+          title: '添加成功',
+          icon: 'success'
+        })
+        this.closeDialog()
+        this.getTodoList()
       })
     }
   },
@@ -222,6 +233,33 @@ Page({
   inputChange: function (e) {
     this.setData({
       dialogContent: e.detail.value
+    })
+  },
+  // 提醒框选择时间
+  remindDayChange: function (e) {
+    this.setData({
+      remindDate: e.detail.value
+    })
+  },
+  remindTimeChange: function (e) {
+    this.setData({
+      remindTime: e.detail.value
+    })
+  },
+  closeTimeWrapper: function () {
+    let day = this.data.remindDate
+    let time = this.data.remindTime
+    var date = new Date(`${day} ${time}`)
+    date = date.getTime()
+    this.setData({
+      isShowTimeWrapper: false,
+      notice_time: day + ' ' + time,
+      is_notice: 1
+    })
+  },
+  openTimerWrapper: function () {
+    this.setData({
+      isShowTimeWrapper: true
     })
   }
 })

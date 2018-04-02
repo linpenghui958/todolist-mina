@@ -71,11 +71,34 @@ const getUserInfo = () => {
   })
 }
 
+const addTodoItem = (params, fn) => {
+  let obj = {}
+  console.log(params)
+  for (var item in params) {
+    if (params[item] == null ) {
+      continue
+    }
+    obj[item] = params[item]
+  }
+  wx.request({
+    url: prefix + '/api/task/add',
+    data: obj,
+    header: {
+      'Authorization': `Bearer ${getApp().globalData.token}`
+    },
+    method: 'GET',
+    success: function (res) {
+      fn(res)
+    }
+  })
+}
+
 module.exports = {
   formatTime: formatTime,
   todoLogin: todoLogin,
   formatTopBarTime: formatTopBarTime,
   monthList,
   getTodoList,
-  endDate
+  endDate,
+  addTodoItem
 }

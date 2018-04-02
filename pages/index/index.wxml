@@ -3,10 +3,10 @@
   <view class="dialog-wrapper {{isShowDialog == true ? '' : 'active'}}" bindtap="closeDialog">
   </view>
   <view class="dialog  {{isShowDialog == true ? '' : 'active'}}">
-    <textarea class="dialog-content" fixed="true" value="{{dialogContent}}" placeholder="输入备忘内容。"/>
+    <textarea class="dialog-content" fixed="true" value="{{dialogContent}}" placeholder="输入备忘内容。" bindinput="inputChange"/>
     <view class="dialog-edit">
       <image src="/assets/clock.png" class="clock"/>
-      <view class="dialog-confirm" bindtap="closeDialog">确认</view>
+      <view class="dialog-confirm" bindtap="addTodoItem">确认</view>
     </view>
   </view>
   
@@ -18,7 +18,7 @@
         <view class="date">{{showDate}}</view>
       </picker>
     </view>
-    <view bindtap="addTodoItem">
+    <view bindtap="openDialog">
       <view class="add-btn">Add a task</view>
       <image src="/assets/add.png" class="plus-sign" />
     </view>

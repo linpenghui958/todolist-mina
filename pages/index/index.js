@@ -170,9 +170,28 @@ Page({
   },
   // 新增todo
   addTodoItem: function () {
+    let obj = {
+      title: this.data.dialogContent,
+      is_notice: this.data.dialogIsNotice || 0,
+      notice_time: this.data.notice_time || ''
+    }
+    util.addTodoItem(obj,() => {
+      this.setData({
+        dialogContent: null,
+        isShowDialog: false
+      })
+      wx.showToast({
+        title: '添加成功',
+        icon: 'success'
+      })
+    })
+    console.log(this)
+    
+  },
+  // 输入文本事件
+  inputChange: function (e) {
     this.setData({
-      dialogContent: null,
-      isShowDialog: true
+      dialogContent: e.detail.value
     })
   }
 })

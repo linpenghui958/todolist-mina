@@ -2,7 +2,7 @@
 //获取应用实例
 const app = getApp()
 
-const util = require('../../utils/util')
+const util = require('../../utils/util.js')
 
 Page({
   data: {
@@ -163,12 +163,14 @@ Page({
   // 短按删除item
   delItem: function (e) {
     let id = e.currentTarget.dataset.id
-    console.log(e)
+    var that = this
     wx.showModal({
       title: 'confirm',
       content: `确认删除id为${id}`,
       success: function (res) {
-         console.log(res) 
+         util.delTodoItem(id, () => {
+          that.getTodoList()
+         })
       },
     })
   },

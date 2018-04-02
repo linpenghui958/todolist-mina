@@ -56,9 +56,70 @@ const getTodoList = (date, fn) => {
 const endDate = () => {
   var date = new Date()
   var year = date.getFullYear()
-  var month = date.getMonth()
+  var month = date.getMonth() + 1
   var day = date.getDate() + 7
   return `${year}-${month}-${day}`
+}
+const startDate = () => {
+  var date = new Date()
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
+  return `${year}-${month}-${day}`
+}
+
+const addTodoItem = (params, fn) => {
+  let obj = {}
+  for (var i in params) {
+    if (params[i] == null) {
+      continue;
+    }
+    obj[i] = params[i]
+  }
+  wx.request({
+    url: prefix + '/api/task/add',
+    data: obj,
+    header: {
+      'Authorization': `Bearer ${getApp().globalData.token}`
+    },
+    method: 'POST',
+    success: function (res) {
+      fn(res)
+    }
+  })
+}
+const editTodoItem = (params, fn) => {
+  let obj = {}
+  for (var i in params) {
+    if (params[i] == null) {
+      continue;
+    }
+    obj[i] = params[i]
+  }
+  wx.request({
+    url: prefix + '/api/task/edit',
+    data: obj,
+    header: {
+      'Authorization': `Bearer ${getApp().globalData.token}`
+    },
+    method: 'POST',
+    success: function (res) {
+      fn(res)
+    }
+  })
+}
+
+const overDueItem = (id, fn) => {
+  wx.request({
+    url: prefix + '/api/task/do/' + id,
+    header: {
+      'Authorization': `Bearer ${getApp().globalData.token}`
+    },
+    method: 'POST',
+    success: function (res) {
+      fn(res)
+    }
+  })
 }
 
 const getUserInfo = () => {
@@ -100,5 +161,8 @@ module.exports = {
   monthList,
   getTodoList,
   endDate,
-  addTodoItem
+  startDate,
+  addTodoItem,
+  overDueItem,
+  editTodoItem
 }

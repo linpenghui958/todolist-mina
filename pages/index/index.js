@@ -15,15 +15,17 @@ Page({
     isShowDialog: false,
     showEditIndex: null,
     showDetailIndex: null,
-    overdueIndex: null,
-    list: [
-      {id: 1, title: '1今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔1'},
-      {id: 2, title: '2今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔1'},
-      {id: 3, title: '3今天晚上十点邀请zzz一起去图书馆借叔叔叔叔叔叔叔叔叔叔叔叔1'}
-    ],
+    list: [],
     dialogContent: '',
+    is_notice: 0,
+    notice_time: null,
+    taskId: null,
     startDate: null,
-    endDate: null
+    endDate: null,
+    isNewTodo: true,
+    remindDate: '',
+    remindTime:'',
+    isShowTimeWrapper: false
   },
   //事件处理函数
   bindViewTap: function() {
@@ -35,6 +37,9 @@ Page({
     console.log('longpress')
   },
   onLoad: function () {
+    wx.showLoading({
+      title: '玩命加载中',
+    })
     this.getDate()
     var that = this
     if (app.globalData.userInfo) {
@@ -48,10 +53,7 @@ Page({
       app.userInfoReadyCallback = params => {
         util.todoLogin(params, function (res) {
           app.globalData.token = res.data.data.token
-          // console.log(that)
-          util.getTodoList(that.data.date, function (res) {
-            console.log(res)
-          })
+          that.getTodoList()
         })
       }
     } else {
@@ -69,14 +71,25 @@ Page({
     }
     
   },
+  getTodoList: function () {
+    util.getTodoList(this.data.date,(res) => {
+      console.log(res)
+      this.setData({
+        list: res.data.data
+      })
+      wx.hideLoading()
+    })
+  },
   getDate: function () {
     var date = new Date()
+    var startDate = util.startDate()
     var endDate = util.endDate()
     var formDate = util.formatTopBarTime(date)
     this.setData({
       showDate: formDate,
-      startDate: date,
-      endDate: endDate
+      startDate: startDate,
+      endDate: endDate,
+      date: startDate
     })
   },
   getUserInfo: function(e) {
@@ -95,6 +108,7 @@ Page({
       date: e.detail.value,
       showDate: showDate
     })
+    this.getTodoList()
   },
   // 长按显示编辑框
   tabEdit: function (e) {
@@ -125,21 +139,24 @@ Page({
   // 短按原点显示完成样式
   overdueItem: function (e) {
     let id = e.target.dataset.id
-    if (this.data.overdueIndex === id) {
-      this.setData({
-        overdueIndex: null
+    console.log(id)
+    util.overDueItem(id, () => {
+      wx.showToast({
+        title: '修改成功',
+        icon: 'success'
       })
-    } else {
-      this.setData({
-        overdueIndex: id
-      })
-    }
+      this.getTodoList()
+    })
   },
   // 短按编辑item
   editItem: function (e) {
-    let {title, id} = e.target.dataset
+    let title = e.target.dataset.title ? e.target.dataset.title : e.currentTarget.dataset.title
+    let id = e.target.dataset.id ? e.target.dataset.id : e.currentTarget.dataset.id
+    console.log(e)
     this.setData({
-      dialogContent: title
+      dialogContent: title,
+      isNewTodo: false,
+      taskId: id
     })
     this.openDialog()
   },
@@ -191,7 +208,80 @@ Page({
   // 输入文本事件
   inputChange: function (e) {
     this.setData({
+      dialogContent: '',
+      isShowDialog: true,
+      isNewTodo: true
+    })
+  },
+  // 短按确认添加新的todo
+  confirmAdd: function (e) {
+    console.log(e)
+    if (this.data.dialogContent.length <= 0) {
+      wx.showToast({
+        title: '请输入内容',
+        icon: 'none'
+      })
+      return;
+    }
+    let obj = {
+      title: this.data.dialogContent,
+      is_notice: this.data.is_notice || 0,
+      notice_time: this.data.notice_time || '',
+      form_id: e.detail.formId || ''
+    }
+    if (this.data.isNewTodo) {
+      obj.addtime = this.data.date
+      util.addTodoItem(obj, (res) => {
+        wx.showToast({
+          title: '添加成功',
+          icon: 'success'
+        })
+        this.closeDialog()
+        this.getTodoList()
+      })
+    } else {
+      obj.task_id = this.data.taskId
+      util.editTodoItem(obj, (res) => {
+        wx.showToast({
+          title: '添加成功',
+          icon: 'success'
+        })
+        this.closeDialog()
+        this.getTodoList()
+      })
+    }
+  },
+  // 输入框事件
+  inputChange: function (e) {
+    this.setData({
       dialogContent: e.detail.value
+    })
+  },
+  // 提醒框选择时间
+  remindDayChange: function (e) {
+    this.setData({
+      remindDate: e.detail.value
+    })
+  },
+  remindTimeChange: function (e) {
+    this.setData({
+      remindTime: e.detail.value
+    })
+  },
+  closeTimeWrapper: function () {
+    let day = this.data.remindDate
+    let time = this.data.remindTime
+    var date = new Date(`${day} ${time}`)
+    date = date.getTime()
+    this.setData({
+      isShowTimeWrapper: false,
+      notice_time: day + ' ' + time,
+      is_notice: 1
+    })
+  },
+  openTimerWrapper: function () {
+    this.setData({
+      isShowTimeWrapper: true
     })
   }
 })

@@ -48,24 +48,30 @@
     </view>
   </view>
   <view class="list-content" >
-    <view wx:for="{{list}}" wx:for-index="index" wx:key="key" class="item-wrapper">
-      <view class="item {{showDetailIndex === item.id ? 'detail' : ''}} {{item.status === 0 ? '' : 'overdue'}}" bindlongpress="tabEdit" bindtap="showItemText" data-id="{{item.id}}">
-        {{item.title}}
-        <view class="checkbox" catchtap="overdueItem" data-id="{{item.id}}"></view>
-      </view>
-      <view class="edit-control-wrapper {{showEditIndex === item.id ? 'active' : ''}}">
-        <view class="edit-control " >
-          <view class="edit-wrapper" catchtap="editItem" data-id="{{item.id}}" data-title="{{item.title}}">
-            <view class="text">编辑</view>
-            <image src="/assets/edit.png" class="icon-edit"/>
-          </view>
-          <view class="del-wrapper" catchtap="delItem" data-id="{{item.id}}">
-            <view class="text">删除</view>
-            <image src="/assets/del.png" class="icon-del"/>
+    <block wx:if="{{list.length > 0}}">
+      <view wx:for="{{list}}" wx:for-index="index" wx:key="key" class="item-wrapper">
+        <view class="item {{showDetailIndex === item.id ? 'detail' : ''}} {{item.status === 0 ? '' : 'overdue'}}" bindlongpress="tabEdit" bindtap="showItemText" data-id="{{item.id}}">
+          {{item.title}}
+          <view class="checkbox" catchtap="overdueItem" data-id="{{item.id}}" data-index="{{index}}"></view>
+        </view>
+        <view class="edit-control-wrapper {{showEditIndex === item.id ? 'active' : ''}}">
+          <view class="edit-control " >
+            <view class="edit-wrapper" catchtap="editItem" data-id="{{item.id}}" data-title="{{item.title}}">
+              <view class="text">编辑</view>
+              <image src="/assets/edit.png" class="icon-edit"/>
+            </view>
+            <view class="del-wrapper" catchtap="delItem" data-id="{{item.id}}" data-index="{{index}}">
+              <view class="text">删除</view>
+              <image src="/assets/del.png" class="icon-del"/>
+            </view>
           </view>
         </view>
       </view>
-    </view>
+    </block>
+    <block wx:else>
+      <view>暂无数据...</view>
+    </block>
+    
   </view>
   
   

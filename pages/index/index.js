@@ -138,14 +138,20 @@ Page({
   },
   // 短按原点显示完成样式
   overdueItem: function (e) {
+    let _this = this;
+    let index = e.currentTarget.dataset.index;
     let id = e.target.dataset.id
     console.log(id)
     util.overDueItem(id, () => {
-      wx.showToast({
-        title: '修改成功',
-        icon: 'success'
+      // wx.showToast({
+      //   title: '修改成功',
+      //   icon: 'success'
+      // })
+      this.data.list[index].status = this.data.list[index].status==1?0:1;
+      this.setData({
+        list: this.data.list
       })
-      this.getTodoList()
+      // this.getTodoList()
     })
   },
   // 短按编辑item
@@ -163,13 +169,21 @@ Page({
   // 短按删除item
   delItem: function (e) {
     let id = e.currentTarget.dataset.id
+    let index = e.currentTarget.dataset.index
     var that = this
     wx.showModal({
       title: 'confirm',
       content: `确认删除id为${id}`,
       success: function (res) {
          util.delTodoItem(id, () => {
-          that.getTodoList()
+           that.data.list.splice(index, 1);
+           that.setData({
+             list: that.data.list
+           })
+           wx.showToast({
+              title: '删除成功',
+              icon: 'success'
+           })
          })
       },
     })
@@ -194,6 +208,7 @@ Page({
       is_notice: this.data.dialogIsNotice || 0,
       notice_time: this.data.notice_time || ''
     }
+    console.log(this.data.notice_time);return false;
     util.addTodoItem(obj,() => {
       this.setData({
         dialogContent: null,

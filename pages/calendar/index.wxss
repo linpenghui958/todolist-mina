@@ -1,1 +1,17 @@
 @import '../../template/datepicker/index.wxss';
+
+.confirm-btn{
+	width: 150rpx;
+	height: 50rpx;
+	line-height: 50rpx;
+	text-align: center;
+	color: #509AFF;
+	font-size: 24rpx;
+	border: 1px solid #509AFF; 
+	border-radius: 10rpx;
+	float: right;
+	margin-top: 50rpx;
+	position: relative;
+	z-index: 100;
+	margin-right: 	50rpx;
+}

@@ -1,0 +1,2 @@
+<import src="../../template/datepicker/index.wxml"/>
+<template is="datepicker" data="{{...datepicker}}" />

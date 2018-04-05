@@ -37,10 +37,10 @@
   
   <view class="topbar">
     <view>
-      <picker class="time-picker" mode="date" value="{{date}}" start="{{startDate}}" end="{{endDate}}" bindchange="bindDateChange">
+      <navigator url="/pages/calendar/index">
         <view class="day">Today</view>
         <view class="date">{{showDate}}</view>
-      </picker>
+      </navigator>
     </view>
     <view bindtap="openDialog">
       <view class="add-btn">Add a task</view>

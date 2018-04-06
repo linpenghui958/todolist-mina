@@ -1,6 +1,7 @@
 const app = getApp()
 
 const prefix = 'https://todo.linph.cc';
+const config = require('./config');
 
 const monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Noc', 'Dec']
 
@@ -48,7 +49,17 @@ const getTodoList = (date, fn) => {
     },
     method: 'GET',
     success: function (res) {
-      fn(res)
+      if (res.data.code === config.ERR_NODATA) {
+        wx.showToast({
+          title: '当天好像没数据~'
+        })
+      } else if (res.data.code === config.ERR_OK) {
+        fn(res)
+      } else if (res.data.code === config.ERR_SERVER) {
+        wx.showToast({
+          title: '服务器好像开小差了~'
+        })
+      }
     }
   })
 }
@@ -84,7 +95,17 @@ const addTodoItem = (params, fn) => {
     },
     method: 'POST',
     success: function (res) {
-      fn(res)
+      if (res.data.code === config.ERR_NODATA) {
+        wx.showToast({
+          title: '当天好像没数据~'
+        })
+      } else if (res.data.code === config.ERR_OK) {
+        fn(res)
+      } else if (res.data.code === config.ERR_SERVER) {
+        wx.showToast({
+          title: '服务器好像开小差了~'
+        })
+      }
     }
   })
 }
@@ -104,7 +125,17 @@ const editTodoItem = (params, fn) => {
     },
     method: 'POST',
     success: function (res) {
-      fn(res)
+      if (res.data.code === config.ERR_NODATA) {
+        wx.showToast({
+          title: '当天好像没数据~'
+        })
+      } else if (res.data.code === config.ERR_OK) {
+        fn(res)
+      } else if (res.data.code === config.ERR_SERVER) {
+        wx.showToast({
+          title: '服务器好像开小差了~'
+        })
+      }
     }
   })
 }
@@ -120,7 +151,17 @@ const delTodoItem = (id, fn) => {
     },
     method: 'POST',
     success: function (res) {
-      fn(res)
+      if (res.data.code === config.ERR_NODATA) {
+        wx.showToast({
+          title: '当天好像没数据~'
+        })
+      } else if (res.data.code === config.ERR_OK) {
+        fn(res)
+      } else if (res.data.code === config.ERR_SERVER) {
+        wx.showToast({
+          title: '服务器好像开小差了~'
+        })
+      }
     }
   })
 }

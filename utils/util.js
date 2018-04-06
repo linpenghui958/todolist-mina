@@ -51,13 +51,16 @@ const getTodoList = (date, fn) => {
     success: function (res) {
       if (res.data.code === config.ERR_NODATA) {
         wx.showToast({
-          title: '当天好像没数据~'
+          title: '当天好像没数据~',
+          icon: 'none'
         })
+        fn(res)
       } else if (res.data.code === config.ERR_OK) {
         fn(res)
       } else if (res.data.code === config.ERR_SERVER) {
         wx.showToast({
-          title: '服务器好像开小差了~'
+          title: '服务器好像开小差了~',
+          icon: 'none'
         })
       }
     }
@@ -97,13 +100,16 @@ const addTodoItem = (params, fn) => {
     success: function (res) {
       if (res.data.code === config.ERR_NODATA) {
         wx.showToast({
-          title: '当天好像没数据~'
+          title: '当天好像没数据~',
+          icon: 'none'
         })
+        fn(res)
       } else if (res.data.code === config.ERR_OK) {
         fn(res)
       } else if (res.data.code === config.ERR_SERVER) {
         wx.showToast({
-          title: '服务器好像开小差了~'
+          title: '服务器好像开小差了~',
+          icon: 'none'
         })
       }
     }
@@ -127,13 +133,16 @@ const editTodoItem = (params, fn) => {
     success: function (res) {
       if (res.data.code === config.ERR_NODATA) {
         wx.showToast({
-          title: '当天好像没数据~'
+          title: '当天好像没数据~',
+          icon: 'none'
         })
+        fn(res)
       } else if (res.data.code === config.ERR_OK) {
         fn(res)
       } else if (res.data.code === config.ERR_SERVER) {
         wx.showToast({
-          title: '服务器好像开小差了~'
+          title: '服务器好像开小差了~',
+          icon: 'none'
         })
       }
     }
@@ -155,6 +164,7 @@ const delTodoItem = (id, fn) => {
         wx.showToast({
           title: '当天好像没数据~'
         })
+        fn(res)
       } else if (res.data.code === config.ERR_OK) {
         fn(res)
       } else if (res.data.code === config.ERR_SERVER) {

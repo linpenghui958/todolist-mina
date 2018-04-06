@@ -81,8 +81,12 @@ Page({
   },
   getTodoList: function () {
     util.getTodoList(this.data.date,(res) => {
+      let data = res.data.data
+      if (res.data.data.legnth == 0) {
+         data = []
+      }
       this.setData({
-        list: res.data.data
+        list: data
       })
       wx.hideLoading()
     })

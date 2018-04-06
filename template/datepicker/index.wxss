@@ -37,7 +37,7 @@
 }
 
 .pink-color {
-	color: #ff629a;
+	color: #509AFF;
 }
 
 .white-color {
@@ -124,7 +124,7 @@
 }
 
 .pink-bg {
-	background-color: #ff629a;
+	background-color: #509AFF;
 }
 
 .purple-bg {
@@ -137,7 +137,7 @@
 	width: 0;
 	height: 0;
 	border: 15rpx solid transparent;
-	border-left-color: #ff629a;
+	border-left-color: #509AFF;
 	position: absolute;
 	right: -22rpx;
 	top: 18rpx;
@@ -149,7 +149,7 @@
 	width: 0;
 	height: 0;
 	border: 15rpx solid transparent;
-	border-right-color: #ff629a;
+	border-right-color: #509AFF;
 	position: absolute;
 	left: -22rpx;
 	top: 18rpx;
@@ -272,7 +272,7 @@
 }
 
 .pink-color {
-	color: #ff629a;
+	color: #509AFF;
 }
 
 .white-color {
@@ -359,7 +359,7 @@
 }
 
 .pink-bg {
-	background-color: #ff629a;
+	background-color: #509AFF;
 }
 
 .purple-bg {
@@ -372,7 +372,7 @@
 	width: 0;
 	height: 0;
 	border: 15rpx solid transparent;
-	border-left-color: #ff629a;
+	border-left-color: #509AFF;
 	position: absolute;
 	right: -22rpx;
 	top: 18rpx;
@@ -384,7 +384,7 @@
 	width: 0;
 	height: 0;
 	border: 15rpx solid transparent;
-	border-right-color: #ff629a;
+	border-right-color: #509AFF;
 	position: absolute;
 	left: -22rpx;
 	top: 18rpx;

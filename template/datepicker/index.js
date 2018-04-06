@@ -1,4 +1,5 @@
 
+const app = getApp()
 /**
 * 左滑
 * @param {object} e 事件对象
@@ -104,7 +105,7 @@ const conf = {
 	 * @param {number} curMonth
 	 * @param {number} curDate
 	 */
-	init(curYear = 2018, curMonth = 1, curDate = 1) {
+	init(curYear, curMonth, curDate) {
 		const self = _getCurrentPage();
 		if (!curYear || !curMonth || !curDate) {
 			const date = new Date();
@@ -128,7 +129,6 @@ const conf = {
 	 * @param {object} e  事件对象
 	 */
 	showDatepicker(e) {
-		console.log('init')
 		const value = e.detail.value;
 		if (value && typeof value === 'string') {
 			const tmp = value.split('-');
@@ -138,7 +138,13 @@ const conf = {
 		}
 	},
 	initView() {
-		conf.init();
+		const value = app.globalData.date;
+		if (value && typeof value === 'string') {
+			const tmp = value.split('-');
+			conf.init(+tmp[ 0 ], +tmp[ 1 ], +tmp[ 2 ]);
+		} else {
+			conf.init();
+		}
 	},
 	/**
 	 * 当输入日期时
@@ -147,7 +153,6 @@ const conf = {
 	onInputDate(e) {
 		this.inputTimer && clearTimeout(this.inputTimer);
 		this.inputTimer = setTimeout(() => {
-			console.log(e);
 			const v = e.detail.value;
 			const _v = (v && v.split('-')) || [];
 			const RegExpYear = /^\d{4}$/;
@@ -220,7 +225,9 @@ const conf = {
 				'datepicker.selectedDay': [ days[ idx ] ],
 			});
 		}
-		console.log(this.data.datepicker.selectedDay)
+		let time = this.data.datepicker.selectedDay
+		app.globalData.date = selectedValue
+		app.globalData.dateArr = this.data.datepicker.selectedDay
 	},
 	/**
 	 * 关闭日历选择器

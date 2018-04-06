@@ -6,7 +6,7 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "To Do List",
-    "navigationBarTextStyle":"#010101"
+    "navigationBarTitleText": "To DO List",
+    "navigationBarTextStyle":"black"
   }
 }

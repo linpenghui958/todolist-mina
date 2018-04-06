@@ -47,7 +47,7 @@
       <image src="/assets/add.png" class="plus-sign" />
     </view>
   </view>
-  <view class="list-content" >
+  <view class="list-content" wx:if="{{list.length > 0}}">
     <view wx:for="{{list}}" wx:for-index="index" wx:key="key" class="item-wrapper">
       <view class="item {{showDetailIndex === item.id ? 'detail' : ''}} {{item.status === 0 ? '' : 'overdue'}}" bindlongpress="tabEdit" bindtap="showItemText" data-id="{{item.id}}">
         {{item.title}}
@@ -67,6 +67,7 @@
       </view>
     </view>
   </view>
+  <image src="/assets/empty.png" wx:else class="empty-png"/>
   
   
 </scroll-view>

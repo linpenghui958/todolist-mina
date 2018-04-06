@@ -1,6 +1,6 @@
 <template name="datepicker">
 <view>
-	<view class="datepicker-bg" wx:if="{{showDatePicker}}" bindtap="closeDatePicker"></view>
+	<view class="datepicker-bg" wx:if="{{showDatePicker}}"></view>
 	<input
 		wx:if="{{showInput}}"	
 		class="datepicker-input"

@@ -71,9 +71,15 @@ Page({
     }
     
   },
+  onShow: function () {
+    wx.showLoading({
+      title: '玩命加载中',
+    })
+    this.getDate()
+    this.getTodoList()
+  },
   getTodoList: function () {
     util.getTodoList(this.data.date,(res) => {
-      console.log(res)
       this.setData({
         list: res.data.data
       })
@@ -81,10 +87,17 @@ Page({
     })
   },
   getDate: function () {
-    var date = new Date()
-    var startDate = util.startDate()
-    var endDate = util.endDate()
-    var formDate = util.formatTopBarTime(date)
+    if (!!app.globalData.date) {
+      let time = app.globalData.dateArr;
+      var formDate = `${util.monthList[time[0].month]}.${time[0].day}.${time[0].year}`
+      var startDate = app.globalData.date
+    } else {
+      var date = new Date()
+      var startDate = util.startDate()
+      var endDate = util.endDate()
+      var formDate = util.formatTopBarTime(date)
+    }
+    
     this.setData({
       showDate: formDate,
       startDate: startDate,
@@ -93,7 +106,6 @@ Page({
     })
   },
   getUserInfo: function(e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
@@ -101,7 +113,6 @@ Page({
     })
   },
   bindDateChange: function(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     var tmpArr = e.detail.value.split('-')
     var showDate = `${util.monthList[Number(tmpArr[1])]}.${tmpArr[2]}.${tmpArr[0]}`
     this.setData({
@@ -139,7 +150,6 @@ Page({
   // 短按原点显示完成样式
   overdueItem: function (e) {
     let id = e.target.dataset.id
-    console.log(id)
     util.overDueItem(id, () => {
       wx.showToast({
         title: '修改成功',
@@ -252,6 +262,12 @@ Page({
         this.getTodoList()
       })
     }
+    this.setData({
+      dialogContent: null,
+      formId: '',
+      is_notice: 0,
+      notice_time: ''
+    })
   },
   // 输入框事件
   inputChange: function (e) {

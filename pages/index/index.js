@@ -119,7 +119,7 @@ Page({
   },
   bindDateChange: function(e) {
     var tmpArr = e.detail.value.split('-')
-    var showDate = `${util.monthList[Number(tmpArr[1])]}.${tmpArr[2]}.${tmpArr[0]}`
+    var showDate = `${util.monthList[Number(tmpArr[1]) - 1]}.${tmpArr[2]}.${tmpArr[0]}`
     this.setData({
       date: e.detail.value,
       showDate: showDate

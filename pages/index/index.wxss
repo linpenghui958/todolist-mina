@@ -71,11 +71,19 @@
   box-sizing: border-box;
   padding: 58rpx 41rpx 50rpx 47rpx;
   background-color: #fff;
+  overflow: hidden;
+  color: #000;
   transition: all ease .6s;
 }
 .dialog.active{
   top: -360rpx;
+  color: #fff;
   transition: all ease .6s;
+}
+.dialog.active .dialog-content{
+  position: relative;
+  top: -300px;
+  transition: all ease .1s;
 }
 .dialog .dialog-content{
   width: 100%;
@@ -87,6 +95,9 @@
   color: #000;
   box-sizing: border-box;
   padding: 20rpx 15rpx 0 ;
+  position: relative;
+  top: 0;
+  transition: all ease .6s;
 }
 .dialog .dialog-edit{
   width: 100%;

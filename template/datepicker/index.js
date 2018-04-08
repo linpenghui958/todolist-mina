@@ -1,5 +1,7 @@
 
 const app = getApp()
+
+const utils = require('../../utils/util')
 /**
 * 左滑
 * @param {object} e 事件对象
@@ -210,7 +212,7 @@ const conf = {
 		const idx = e.currentTarget.dataset.idx;
 		const { curYear, curMonth, days } = this.data.datepicker;
 		const key = `datepicker.days[${idx}].choosed`;
-		const selectedValue = `${curYear}-${curMonth}-${days[ idx ].day}`;
+		const selectedValue = `${curYear}-${utils.formatNumber(curMonth)}-${utils.formatNumber(days[ idx ].day)}`;
 		if (this.config.type === 'timearea') {
 			this.setData({
 				[ key ]: !days[ idx ].choosed,

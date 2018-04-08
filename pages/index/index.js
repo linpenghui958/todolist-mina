@@ -158,15 +158,15 @@ Page({
     let index = e.currentTarget.dataset.index;
     let id = e.target.dataset.id
     util.overDueItem(id, () => {
-      // wx.showToast({
-      //   title: '修改成功',
-      //   icon: 'success'
-      // })
+      wx.showToast({
+        title: '修改成功',
+        icon: 'success'
+      })
       this.data.list[index].status = this.data.list[index].status==1?0:1;
       this.setData({
         list: this.data.list
       })
-      // this.getTodoList()
+      this.getTodoList()
     })
   },
   // 短按编辑item
@@ -188,7 +188,7 @@ Page({
     var that = this
     wx.showModal({
       title: 'confirm',
-      content: `确认删除id为${id}`,
+      content: `确认删除该ToDo`,
       success: function (res) {
          util.delTodoItem(id, () => {
            that.data.list.splice(index, 1);

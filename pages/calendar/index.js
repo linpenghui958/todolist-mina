@@ -14,7 +14,6 @@ const conf = {
 	},
 
 	backHome: function () {
-		console.log('back')
 		wx.navigateBack({
 			delta: 1
 		})

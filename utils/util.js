@@ -210,5 +210,6 @@ module.exports = {
   addTodoItem,
   overDueItem,
   editTodoItem,
-  delTodoItem
+  delTodoItem,
+  formatNumber
 }

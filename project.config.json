@@ -8,9 +8,9 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.93",
+	"libVersion": "1.9.94",
 	"appid": "wx2a10f8f3e18d531a",
-	"projectname": "todolist",
+	"projectname": "todo",
 	"isGameTourist": false,
 	"condition": {
 		"search": {

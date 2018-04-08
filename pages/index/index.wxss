@@ -310,3 +310,11 @@
 .hidden{
   display: none;
 }
+
+.empty-png{
+  width: 300rpx;
+  height: 300rpx;
+  margin-top: 300rpx;
+  margin-left: 225rpx;
+  margin-right: 225rpx;
+}

@@ -67,6 +67,8 @@ App({
   globalData: {
     userInfo: null,
     hasUserInfo: false,
-    token: null
+    token: null,
+    date: null,
+    dateArr: {}
   }
 })

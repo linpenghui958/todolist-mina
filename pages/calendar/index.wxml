@@ -1,0 +1,7 @@
+<import src="../../template/datepicker/index.wxml"/>
+<view>
+  <template is="datepicker" data="{{...datepicker}}" />
+  <view class="confirm-btn" catchtap="backHome">
+    确定
+  </view>
+</view>

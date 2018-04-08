@@ -1,6 +1,7 @@
 const app = getApp()
 
 const prefix = 'https://todo.linph.cc';
+const config = require('./config');
 
 const monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Noc', 'Dec']
 
@@ -48,7 +49,20 @@ const getTodoList = (date, fn) => {
     },
     method: 'GET',
     success: function (res) {
-      fn(res)
+      if (res.data.code === config.ERR_NODATA) {
+        wx.showToast({
+          title: '当天好像没数据~',
+          icon: 'none'
+        })
+        fn(res)
+      } else if (res.data.code === config.ERR_OK) {
+        fn(res)
+      } else if (res.data.code === config.ERR_SERVER) {
+        wx.showToast({
+          title: '服务器好像开小差了~',
+          icon: 'none'
+        })
+      }
     }
   })
 }
@@ -63,8 +77,8 @@ const endDate = () => {
 const startDate = () => {
   var date = new Date()
   var year = date.getFullYear()
-  var month = date.getMonth() + 1
-  var day = date.getDate()
+  var month = formatNumber(date.getMonth() + 1)
+  var day = formatNumber(date.getDate())
   return `${year}-${month}-${day}`
 }
 
@@ -84,7 +98,20 @@ const addTodoItem = (params, fn) => {
     },
     method: 'POST',
     success: function (res) {
-      fn(res)
+      if (res.data.code === config.ERR_NODATA) {
+        wx.showToast({
+          title: '当天好像没数据~',
+          icon: 'none'
+        })
+        fn(res)
+      } else if (res.data.code === config.ERR_OK) {
+        fn(res)
+      } else if (res.data.code === config.ERR_SERVER) {
+        wx.showToast({
+          title: '服务器好像开小差了~',
+          icon: 'none'
+        })
+      }
     }
   })
 }
@@ -104,7 +131,47 @@ const editTodoItem = (params, fn) => {
     },
     method: 'POST',
     success: function (res) {
-      fn(res)
+      if (res.data.code === config.ERR_NODATA) {
+        wx.showToast({
+          title: '当天好像没数据~',
+          icon: 'none'
+        })
+        fn(res)
+      } else if (res.data.code === config.ERR_OK) {
+        fn(res)
+      } else if (res.data.code === config.ERR_SERVER) {
+        wx.showToast({
+          title: '服务器好像开小差了~',
+          icon: 'none'
+        })
+      }
+    }
+  })
+}
+
+const delTodoItem = (id, fn) => {
+  wx.request({
+    url: prefix + '/api/task/del',
+    data: {
+      task_id: id
+    },
+    header: {
+      'Authorization': `Bearer ${getApp().globalData.token}`
+    },
+    method: 'POST',
+    success: function (res) {
+      if (res.data.code === config.ERR_NODATA) {
+        wx.showToast({
+          title: '当天好像没数据~'
+        })
+        fn(res)
+      } else if (res.data.code === config.ERR_OK) {
+        fn(res)
+      } else if (res.data.code === config.ERR_SERVER) {
+        wx.showToast({
+          title: '服务器好像开小差了~'
+        })
+      }
     }
   })
 }
@@ -142,5 +209,6 @@ module.exports = {
   startDate,
   addTodoItem,
   overDueItem,
-  editTodoItem
+  editTodoItem,
+  delTodoItem
 }

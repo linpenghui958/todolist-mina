@@ -4,6 +4,7 @@ const app = getApp()
 
 const util = require('../../utils/util.js')
 const config = require('../../utils/config.js')
+const NOW_DAY = util.startDate()
 
 Page({
   data: {
@@ -26,9 +27,18 @@ Page({
     isNewTodo: true,
     remindDate: '',
     remindTime:'',
-    isShowTimeWrapper: false
+    isShowTimeWrapper: false,
+    showWeekDay: 'Today',
+    indexPageIsInit: false
   },
   //事件处理函数
+  onShareAppMessage: function () {
+    return {
+      title: '转发ToDo它喵的',
+      path: '/page/index/index',
+      imageUrl: '/assets/shareImg.png'
+    }
+  },
   bindViewTap: function() {
     wx.navigateTo({
       url: '../logs/logs'
@@ -77,7 +87,13 @@ Page({
       title: '玩命加载中',
     })
     this.getDate()
-    this.getTodoList()
+    if (this.data.indexPageIsInit) {
+      console.log('onshow')
+      this.getTodoList()
+    }
+    this.setData({
+      indexPageIsInit: true
+    })
   },
   getTodoList: function () {
     util.getTodoList(this.data.date,(res) => {
@@ -94,7 +110,7 @@ Page({
   getDate: function () {
     if (!!app.globalData.date) {
       let time = app.globalData.dateArr;
-      var formDate = `${util.monthList[time[0].month]}.${time[0].day}.${time[0].year}`
+      var formDate = `${util.monthList[time[0].month - 1]}.${time[0].day}.${time[0].year}`
       var startDate = app.globalData.date
     } else {
       var date = new Date()
@@ -102,13 +118,26 @@ Page({
       var endDate = util.endDate()
       var formDate = util.formatTopBarTime(date)
     }
-    
+    this._getWeekShow(startDate)
     this.setData({
       showDate: formDate,
       startDate: startDate,
       endDate: endDate,
       date: startDate
     })
+  },
+  _getWeekShow: function (date) {
+    if (date == NOW_DAY) {
+      this.setData({
+        showWeekDay: 'Today'
+      })
+    } else {
+      let dayNum = new Date(date).getDay()
+      let str = util.weekList[dayNum]
+      this.setData({
+        showWeekDay: str
+      })
+    }
   },
   getUserInfo: function(e) {
     app.globalData.userInfo = e.detail.userInfo

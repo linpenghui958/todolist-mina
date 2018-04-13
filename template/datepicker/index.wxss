@@ -361,6 +361,10 @@
 .pink-bg {
 	background-color: #509AFF;
 }
+.today {
+	border: 1px solid #509AFF;
+	border-radius: 50%;
+}
 
 .purple-bg {
 	background-color: #b8b8f1;

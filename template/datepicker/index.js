@@ -2,6 +2,8 @@
 const app = getApp()
 
 const utils = require('../../utils/util')
+
+const NOW_DAY = utils.startDate()
 /**
 * 左滑
 * @param {object} e 事件对象
@@ -86,6 +88,7 @@ const conf = {
 				choosed: curDate ? (i === curDate) : (year === selectYear && month === selectMonth && i === day),
 				year,
 				month,
+				isToday: `${year}-${utils.formatNumber(month)}-${i}` == NOW_DAY ? true : false
 			});
 		}
 		const tmp = {

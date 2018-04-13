@@ -4,6 +4,7 @@ const prefix = 'https://todo.linph.cc';
 const config = require('./config');
 
 const monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Noc', 'Dec']
+const weekList = [ '星期日', '星期一', '星期二', '星期三','星期四', '星期五','星期六']
 
 const formatTime = date => {
   const year = date.getFullYear()
@@ -21,7 +22,7 @@ const formatTopBarTime = date => {
   const month = date.getMonth() + 1
   const day = date.getDate()
 
-  return `${monthList[month]}.${day}.${year}`
+  return `${monthList[month - 1]}.${day}.${year}`
 }
 
 const formatNumber = n => {
@@ -211,5 +212,6 @@ module.exports = {
   overDueItem,
   editTodoItem,
   delTodoItem,
-  formatNumber
+  formatNumber,
+  weekList
 }

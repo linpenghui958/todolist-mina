@@ -38,7 +38,7 @@
   <view class="topbar">
     <view>
       <navigator url="/pages/calendar/index">
-        <view class="day">Today</view>
+        <view class="day">{{showWeekDay}}</view>
         <view class="date">{{showDate}}</view>
       </navigator>
     </view>

@@ -6,6 +6,16 @@ const config = require('./config');
 const monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Noc', 'Dec']
 const weekList = [ '星期日', '星期一', '星期二', '星期三','星期四', '星期五','星期六']
 
+const month_days = (year) => {
+  //  1月     2月                 3月  4月 5月 6月 7月 8月 9月 10月11月12月
+  return [31, 28 + _isLeapYear(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+}
+
+// 是否闰年
+const _isLeapYear = (year) => {
+  return (((year % 4) === 0 ) && ((year % 100) !== 0)) || (((year % 100) === 0) && ((year % 400) === 0))
+}
+
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -68,12 +78,42 @@ const getTodoList = (date, fn) => {
   })
 }
 
-const endDate = () => {
-  var date = new Date()
-  var year = date.getFullYear()
-  var month = date.getMonth() + 1
-  var day = date.getDate() + 7
-  return `${year}-${month}-${day}`
+const endDate = (date) => {
+  if (!!date) {
+    var arr = date.split('-')
+    var year = parseInt(arr[0])
+    var month = parseInt(arr[1])
+    var days = parseInt(arr[2])
+    var monthLength = month_days(year)[month - 1]
+    var sevenDayLater = days + 7
+    
+    // 判断7天后是否超出当年，超出当年
+  } else {
+    let newDate = new Date()
+    var year = newDate.getFullYear()
+    var month = newDate.getMonth() + 1
+    var days = newDate.getDate()
+    var monthLength = month_days(year)[month - 1]
+    var sevenDayLater = days - 0 + 7
+    // if (sevenDayLater > monthLength) {
+    //   let nextMonthDay = sevenDayLater - monthLength
+    //   if (month == 12) {
+    //     return `${year + 1}-1-${nextMonthDay}`
+    //   }
+    //   return `${year}-${month + 1}-${nextMonthDay}`
+    // } 
+
+    // return `${year}-${month}-${sevenDayLater}`
+  }
+  if (sevenDayLater > monthLength) {
+    let nextMonthDay = sevenDayLater - monthLength
+    if (month == 12) {
+      return `${year + 1}-1-${nextMonthDay}`
+    }
+    return `${year}-${month + 1}-${nextMonthDay}`
+  } 
+
+  return `${year}-${month}-${sevenDayLater}`
 }
 const startDate = () => {
   var date = new Date()

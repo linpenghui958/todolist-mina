@@ -362,7 +362,8 @@
 	background-color: #509AFF;
 }
 .today {
-	border: 1px solid #509AFF;
+	background-color: pink;
+	color: #fff;
 	border-radius: 50%;
 }
 

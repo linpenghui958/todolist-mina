@@ -146,8 +146,7 @@
 }
 .item.detail{
   transition: all ease .3s;
-  white-space: pre-wrap;
-  word-break:break-all;
+  white-space: normal;
 }
 .item .checkbox{
   display: block;

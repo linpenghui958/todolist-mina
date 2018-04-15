@@ -35,7 +35,7 @@ Page({
   onShareAppMessage: function () {
     return {
       title: '转发ToDo它喵的',
-      path: '/page/index/index',
+      path: '/pages/index/index',
       imageUrl: '/assets/shareImg.png'
     }
   },
@@ -86,9 +86,8 @@ Page({
     wx.showLoading({
       title: '玩命加载中',
     })
-    this.getDate()
     if (this.data.indexPageIsInit) {
-      console.log('onshow')
+      this.getDate()    
       this.getTodoList()
     }
     this.setData({
@@ -108,14 +107,17 @@ Page({
     })
   },
   getDate: function () {
-    if (!!app.globalData.date) {
+    const globalDate = app.globalData.date;
+    console.log(globalDate)
+    if (!!globalDate) {
       let time = app.globalData.dateArr;
       var formDate = `${util.monthList[time[0].month - 1]}.${time[0].day}.${time[0].year}`
       var startDate = app.globalData.date
+      var endDate = util.endDate(globalDate)
     } else {
       var date = new Date()
       var startDate = util.startDate()
-      var endDate = util.endDate()
+      var endDate = util.endDate(globalDate)
       var formDate = util.formatTopBarTime(date)
     }
     this._getWeekShow(startDate)

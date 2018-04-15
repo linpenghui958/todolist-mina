@@ -6,7 +6,7 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "To DO 它喵的",
+    "navigationBarTitleText": "Todo它喵的",
     "navigationBarTextStyle":"black"
   }
 }

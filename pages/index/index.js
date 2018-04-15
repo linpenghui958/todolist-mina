@@ -318,12 +318,12 @@ Page({
   // 提醒框选择时间
   remindDayChange: function (e) {
     this.setData({
-      remindDate: e.detail.value
+      remindDate: e.detail.value.trim()
     })
   },
   remindTimeChange: function (e) {
     this.setData({
-      remindTime: e.detail.value
+      remindTime: e.detail.value.trim()
     })
   },
   closeTimeWrapper: function () {

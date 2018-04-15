@@ -162,23 +162,12 @@ Page({
     let id = e.target.dataset.id
     if (this.data.showEditIndex === id) {
       this.setData({
-        showEditIndex: null
-      })
-    } else {
-      this.setData({
-        showEditIndex: id
-      })
-    }
-  },
-  // 短按显示具体内容
-  showItemText: function (e) {
-    let id = e.target.dataset.id
-    if (this.data.showDetailIndex === id) {
-      this.setData({
+        showEditIndex: null,
         showDetailIndex: null
       })
     } else {
       this.setData({
+        showEditIndex: id,
         showDetailIndex: id
       })
     }

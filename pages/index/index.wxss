@@ -113,12 +113,13 @@
 .dialog .dialog-edit .dialog-confirm{
   font-size: 24rpx;
   color: #509AFF;
+  margin: 0;
   border: 1rpx solid #509AFF;
   width: 148rpx;
   height: 50rpx;
   line-height: 50rpx;
   text-align: center;
-  border-radius: 10rpx;
+  border-radius: 14rpx;
 }
 
 .time-picker{
@@ -137,7 +138,7 @@
   line-height: 30rpx;
   font-size: 24rpx;
   box-sizing: border-box;
-  padding: 30rpx 0 30rpx 100rpx;
+  padding: 30rpx 122rpx 30rpx 80rpx;
   color: #fff;
   white-space: nowrap;
   overflow: hidden;
@@ -148,6 +149,40 @@
   transition: all ease .3s;
   white-space: normal;
 }
+.item.detail .isSetedNoticed{
+  opacity: 0;
+  transition: all ease .6s;
+}
+.item.detail::after{
+  transform: rotate(135deg);
+  transition: all ease .6s;
+}
+
+.item::after{
+  display: block;
+  content: '';
+  position: absolute;
+  right: 12px;
+  top: 34rpx;
+  width: 14rpx;
+  height: 14rpx;
+  border: 1px solid transparent;
+  border-top-color: #fff;
+  border-right-color: #fff;
+  transform: rotate(45deg);
+  transition: all ease .6s;
+}
+.item .isSetedNoticed{
+  width: 36rpx;
+  opacity: 1;
+  display: block;
+  content: '';
+  height: 36rpx;
+  position: absolute;
+  right: 65rpx;
+  top: 24rpx;
+  transition: all ease .6s;
+}
 .item .checkbox{
   display: block;
   content: '';
@@ -156,7 +191,7 @@
   height: 36rpx;
   border-radius: 50%;
   left:  8rpx;
-  top: 50%;
+  top: 42rpx;
   border: 20rpx solid #509AFF;
   transform: translateY(-50%);
   background-color: #fff;

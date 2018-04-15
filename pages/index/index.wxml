@@ -49,9 +49,10 @@
   </view>
   
   <view class="list-content" wx:if="{{list.length > 0}}">
-      <view wx:for="{{list}}" wx:for-index="index" wx:key="key" class="item-wrapper">
-        <view class="item {{showDetailIndex === item.id ? 'detail' : ''}} {{item.status === 0 ? '' : 'overdue'}}" bindlongpress="tabEdit" bindtap="showItemText" data-id="{{item.id}}">
+    <view wx:for="{{list}}" wx:for-index="index" wx:key="key" class="item-wrapper">
+      <view class="item {{showDetailIndex === item.id ? 'detail' : ''}} {{item.status === 0 ? '' : 'overdue'}}" bindtap="tabEdit" data-id="{{item.id}}">
         {{item.title}}
+        <image src="/assets/w-clock.png" wx:if="{{item.notice}}" class="isSetedNoticed"/>
         <view class="checkbox" catchtap="overdueItem" data-id="{{item.id}}" data-index="{{index}}"></view>
       </view>
       <view class="edit-control-wrapper {{showEditIndex === item.id ? 'active' : ''}}">
@@ -66,8 +67,7 @@
           </view>
         </view>
       </view>
-      </view>
-    
+    </view>
   </view>
   <image src="/assets/empty.png" wx:else class="empty-png"/>
   

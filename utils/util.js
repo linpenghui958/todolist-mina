@@ -144,15 +144,21 @@ const addTodoItem = (params, fn) => {
           title: '当天好像没数据~',
           icon: 'none'
         })
-        fn(res)
-      } else if (res.data.code === config.ERR_OK) {
-        fn(res)
+        return;
       } else if (res.data.code === config.ERR_SERVER) {
         wx.showToast({
           title: '服务器好像开小差了~',
           icon: 'none'
         })
+        return;
+      } else if (res.data.code === config.ERR_CLIENT) {
+        wx.showToast({
+          title: '请选择正确的日期格式',
+          icon: 'none'
+        })
+        return;
       }
+      fn(res)
     }
   })
 }
@@ -177,15 +183,21 @@ const editTodoItem = (params, fn) => {
           title: '当天好像没数据~',
           icon: 'none'
         })
-        fn(res)
-      } else if (res.data.code === config.ERR_OK) {
-        fn(res)
-      } else if (res.data.code === config.ERR_SERVER) {
+        return
+      }  else if (res.data.code === config.ERR_SERVER) {
         wx.showToast({
           title: '服务器好像开小差了~',
           icon: 'none'
         })
+        return
+      } else if (res.data.code === config.ERR_CLIENT) {
+        wx.showToast({
+          title: '请选择正确的日期格式',
+          icon: 'none'
+        })
+        return;
       }
+      fn(res)
     }
   })
 }

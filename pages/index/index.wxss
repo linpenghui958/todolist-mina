@@ -106,6 +106,10 @@
   display: flex;
   justify-content: space-between;
 }
+.dialog .dialog-edit .remind-date{
+  font-size: 26rpx;
+  margin-left: -200rpx;
+}
 .dialog .dialog-edit .clock{
   width: 38rpx;
   height: 38rpx;

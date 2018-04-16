@@ -193,11 +193,15 @@ Page({
   editItem: function (e) {
     let title = e.target.dataset.title ? e.target.dataset.title : e.currentTarget.dataset.title
     let id = e.target.dataset.id ? e.target.dataset.id : e.currentTarget.dataset.id
+    let remind = e.target.dataset.remind ? e.target.dataset.remind : e.currentTarget.dataset.remind
+    let arr = remind.split(' ')
     console.log(e)
     this.setData({
       dialogContent: title,
       isNewTodo: false,
-      taskId: id
+      taskId: id,
+      remindTime: arr[1],
+      remindDate: arr[0]
     })
     this.openDialog()
   },
@@ -283,6 +287,7 @@ Page({
     }
     if (this.data.isNewTodo) {
       obj.addtime = this.data.date
+      obj.notice_time = obj.notice_time.replace(/^\s|\s$/, '')
       util.addTodoItem(obj, (res) => {
         wx.showToast({
           title: '添加成功',
@@ -290,18 +295,24 @@ Page({
         })
         this.closeDialog()
         this.getTodoList()
+        this.emptyFormData()
       })
     } else {
       obj.task_id = this.data.taskId
       util.editTodoItem(obj, (res) => {
         wx.showToast({
-          title: '添加成功',
+          title: '修改成功',
           icon: 'success'
         })
         this.closeDialog()
         this.getTodoList()
+        this.emptyFormData()
       })
     }
+    
+  },
+  // 清空表单数据
+  emptyFormData: function (e) {
     this.setData({
       dialogContent: null,
       formId: '',
@@ -317,13 +328,15 @@ Page({
   },
   // 提醒框选择时间
   remindDayChange: function (e) {
+    let date = e.detail.value.replace(/^\s|\s$/, '')
     this.setData({
-      remindDate: e.detail.value.trim()
+      remindDate: date
     })
   },
   remindTimeChange: function (e) {
+    let date = e.detail.value.replace(/^\s|\s$/, '')
     this.setData({
-      remindTime: e.detail.value.trim()
+      remindTime: date
     })
   },
   closeTimeWrapper: function () {

@@ -29,6 +29,8 @@
       <input type="string" placeholder="" class="hidden" name="taskId" value="{{taskId}}"/>
       <view class="dialog-edit">
         <image src="/assets/clock.png" class="clock"  catchtap="openTimerWrapper"/>
+        <view wx:if="{{!!remindDate.length}}" class="remind-date">{{remindDate}}-{{remindTime}}</view>
+        <view wx:else class="remind-date">暂未设置提醒时间</view>
         <button class="dialog-confirm" form-type="submit">确认</button>
       </view>
     </view>
@@ -57,7 +59,7 @@
       </view>
       <view class="edit-control-wrapper {{showEditIndex === item.id ? 'active' : ''}}">
         <view class="edit-control " >
-          <view class="edit-wrapper" catchtap="editItem" data-id="{{item.id}}" data-title="{{item.title}}">
+          <view class="edit-wrapper" catchtap="editItem" data-id="{{item.id}}" data-title="{{item.title}}" data-remind="{{item.notice.notice_time}}">
             <view class="text">编辑</view>
             <image src="/assets/edit.png" class="icon-edit"/>
           </view>
